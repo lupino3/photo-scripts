@@ -5,15 +5,17 @@
 # Removes the RAW files that are not needed after the first selection is done
 # in JPGs. It simply removes any RAW files for which there is no corresponding
 # JPG file.
+#
+# This is useful because I typically shoot in RAW+JPG and then do the first
+# selection with JPGs only using EOG (Eye Of Gnome).
 
 import argparse
 import os
 
 parser = argparse.ArgumentParser()
-parser.add_argument("dir",
-        help="Directory to process. Default: current directory.")
+parser.add_argument("dir", help="Directory to process.")
 parser.add_argument("--dry_run", action="store_true", default=False,
-        help="Set to false to remove files.")
+        help="Only output files to delete, without deleting them.")
 parser.add_argument("--verbose", action="store_true", default=False,
         help="Verbose output.")
 args = parser.parse_args()
