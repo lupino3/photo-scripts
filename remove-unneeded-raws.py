@@ -12,50 +12,58 @@
 import argparse
 import os
 
-parser = argparse.ArgumentParser()
-parser.add_argument("dir", help="Directory to process.")
-parser.add_argument("--dry_run", action="store_true", default=False,
-        help="Only output files to delete, without deleting them.")
-parser.add_argument("--verbose", action="store_true", default=False,
-        help="Verbose output.")
-args = parser.parse_args()
-
+# Constants
 RAW_EXTENSIONS = ("raf", "nef", "RAF", "NEF")
 JPEG_EXTENSIONS = ("jpg", "jpeg", "JPG", "JPEG")
 
+# Utility functions.
 def is_raw(filename: str) -> bool:
     return any(filename.endswith("." + ext) for ext in RAW_EXTENSIONS)
 
 def is_jpg(filename: str) -> bool:
     return any(filename.endswith("." + ext) for ext in JPEG_EXTENSIONS)
 
-directory = os.path.expanduser(args.dir)
-files = os.listdir(directory)
+# Main body of the script.
+if __name__ == "__main__":
+    # Command-line options.
+    parser = argparse.ArgumentParser()
+    parser.add_argument("dir", help="Directory to process.")
+    parser.add_argument("--dry_run", action="store_true", default=False,
+            help="Only output files to delete, without deleting them.")
+    parser.add_argument("--verbose", action="store_true", default=False,
+            help="Verbose output.")
+    args = parser.parse_args()
 
-jpg_basenames = set(os.path.splitext(f)[0] for f in files if is_jpg(f))
-if args.verbose:
-    print("JPG: " + ", ".join(jpg_basenames))
-    print()
+    directory = os.path.expanduser(args.dir)
+    files = os.listdir(directory)
 
-raw_files = [f for f in files if is_raw(f)]
-if args.verbose:
-    print ("RAW: " + ", ".join(raw_files))
-    print()
+    # Get the sets of RAW files and JPG basenames.
+    jpg_basenames = set(os.path.splitext(f)[0] for f in files if is_jpg(f))
+    raw_files = [f for f in files if is_raw(f)]
 
-to_remove = []
-for raw_file in raw_files:
-    basename = os.path.splitext(raw_file)[0]
-    if basename not in jpg_basenames:
-        to_remove.append(raw_file)
+    if args.verbose:
+        print("JPG: " + ", ".join(jpg_basenames))
+        print()
+        print ("RAW: " + ", ".join(raw_files))
+        print()
 
-if args.dry_run:
-    print("DRY_RUN. Would remove: " + ", ".join(to_remove))
-    print()
-else:
-    for f in to_remove:
-        os.remove(os.path.join(directory, f))
+    # Find files to remove.
+    to_remove = []
+    for raw_file in raw_files:
+        basename = os.path.splitext(raw_file)[0]
+        if basename not in jpg_basenames:
+            to_remove.append(raw_file)
 
-if args.verbose:
-    print("Removed " + str(len(to_remove)) + " RAW files.")
-    if args.dry_run:
-        print("(Not really. DRY_RUN)")
+    # Remove files or, if it's a dry run, output files to remove.
+    if not args.dry_run:
+        for f in to_remove:
+            os.remove(os.path.join(directory, f))
+    else:
+        print("DRY_RUN. Would remove: " + ", ".join(to_remove))
+        print()
+
+    # Additional output.
+    if args.verbose:
+        print("Removed " + str(len(to_remove)) + " RAW files.")
+        if args.dry_run:
+            print("(Not really. DRY_RUN)")
