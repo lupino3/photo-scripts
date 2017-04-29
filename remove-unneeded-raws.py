@@ -32,7 +32,7 @@ def is_jpg(filename: str) -> bool:
 directory = os.path.expanduser(args.dir)
 files = os.listdir(directory)
 
-jpg_basenames = set([os.path.splitext(f)[0] for f in files if is_jpg(f)])
+jpg_basenames = set(os.path.splitext(f)[0] for f in files if is_jpg(f))
 if args.verbose:
     print("JPG: " + ", ".join(jpg_basenames))
     print()
