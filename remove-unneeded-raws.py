@@ -59,7 +59,7 @@ if __name__ == "__main__":
         for f in to_remove:
             os.remove(os.path.join(directory, f))
     else:
-        print("DRY_RUN. Would remove: " + ", ".join(to_remove))
+        print("DRY_RUN. Would remove:\n " + "\n ".join(to_remove))
         print()
 
     # Additional output.
