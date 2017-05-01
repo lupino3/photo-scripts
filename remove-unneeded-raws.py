@@ -42,9 +42,9 @@ if __name__ == "__main__":
     raw_files = [f for f in files if is_raw(f)]
 
     if args.verbose:
-        print("JPG: " + ", ".join(jpg_basenames))
+        print("JPG: " + ", ".join(sorted(jpg_basenames)))
         print()
-        print ("RAW: " + ", ".join(raw_files))
+        print ("RAW: " + ", ".join(sorted(raw_files)))
         print()
 
     # Find files to remove.
@@ -59,7 +59,7 @@ if __name__ == "__main__":
         for f in to_remove:
             os.remove(os.path.join(directory, f))
     else:
-        print("DRY_RUN. Would remove:\n " + "\n ".join(to_remove))
+        print("DRY_RUN. Would remove:\n " + "\n ".join(sorted(to_remove)))
         print()
 
     # Additional output.
