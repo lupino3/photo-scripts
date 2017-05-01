@@ -1,4 +1,6 @@
-# Photo Workflow
+# Notes on my Photo Workflow
+
+Notes for myself on my photo workflow. Partly useful as the raison d'etre for the scripts in this repo, partly useful as notes on how to process photos.
 
 ## 1. Copy files from SD to a `TO_PROCESS/YYYY/YYYY.MM - {TITLE}/` folder
 ## 2. Run EOG (Eye Of Gnome), remove JPGs that are obviously bad
@@ -8,6 +10,10 @@ To remove RAWs for which the JPG was removed in the first selection
 
 ## 4. Open Darktable
 
+### Import Files
+* import folder, set metadata tags in the import dialog
+
+### Other activities
 * select "show all except rejected"
 * process either the RAW or the JPG for each file
 * remove the JPG (if RAW was processed) or RAW (vice versa)
