@@ -30,7 +30,7 @@ if __name__ == "__main__":
     parser.add_argument("dir", help="Directory to process.")
     parser.add_argument("--dry_run", action="store_true", default=False,
             help="Only output files to delete, without deleting them.")
-    parser.add_argument("--verbose", action="store_true", default=False,
+    parser.add_argument("-v", "--verbose", action="store_true", default=False,
             help="Verbose output.")
     args = parser.parse_args()
 
