@@ -80,7 +80,7 @@ if __name__ == "__main__":
     # Remove files or, if it's a dry run, output files to remove.
     if not args.dry_run:
         for f in files_to_remove:
-            os.remove(os.path.join(directory, f))
+            os.remove(f)
     else:
         print("DRY_RUN. Would remove:\n " + "\n ".join(sorted(files_to_remove)))
         print()
